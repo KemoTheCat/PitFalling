@@ -4,39 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a64a678-f256-4565-941a-48c28289ef89" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PitFalling/.env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/assets/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/components/AppFooter.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/components/AppNavbar.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/components/AvatarCropper.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/lib/supabaseClient.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/lib/uploadAvatar.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/stores/auth.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/AccountSetupView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/AuthView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/AvatarSetupView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/CharacterCreatorView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/DashboardView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/HomeView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/MsdsView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/PrivacyView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/ProfileView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/SettingsView.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PitFalling/src/views/TermsView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/src/router/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PitFalling/vitest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/PitFalling/vitest.config.ts" afterDir="false" />
-    </list>
+    <list default="true" id="7a64a678-f256-4565-941a-48c28289ef89" name="Changes" comment="added defective version to test in VM playground" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -129,11 +97,24 @@
       <workItem from="1762222595205" duration="265000" />
       <workItem from="1762302988254" duration="6069000" />
       <workItem from="1762486796278" duration="2727000" />
-      <workItem from="1762653250537" duration="645000" />
+      <workItem from="1762653250537" duration="1309000" />
     </task>
+    <task id="LOCAL-00001" summary="added defective version to test in VM playground">
+      <option name="closed" value="true" />
+      <created>1762653946283</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762653946283</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added defective version to test in VM playground" />
+    <option name="LAST_COMMIT_MESSAGE" value="added defective version to test in VM playground" />
   </component>
 </project>
