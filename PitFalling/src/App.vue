@@ -1,11 +1,20 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div class="min-h-screen flex flex-col bg-anodyne-flesh-50 text-anodyne-ink">
+    <AppNavbar />
+
+    <!-- Main ocupa el espacio flexible -->
+    <main class="flex-1 w-full px-4 sm:px-6 lg:px-8">
+      <!-- Contenido centrado con ancho máximo -->
+      <div class="mx-auto w-full max-w-7xl py-6">
+        <RouterView />
+      </div>
+    </main>
+
+    <AppFooter />
+  </div>
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+import AppNavbar from '@/components/AppNavbar.vue'
+import AppFooter from '@/components/AppFooter.vue'
+</script>

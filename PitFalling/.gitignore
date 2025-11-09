@@ -34,3 +34,11 @@ coverage
 
 # Vitest
 __screenshots__/
+
+
+# ───────────────────────────────
+# ENV files
+.env
+.env.*
+!.env.example
+# ───────────────────────────────

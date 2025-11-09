@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* === Tokens Anodyne === */
+:root {
+  /* Fonts */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New";
+
+  /* Colores */
+  --ink:        21 24 27;     /* #15181B */
+  --ink-2:      51 55 59;
+  --border:    205 208 210;
+  --flesh-50:  247 243 232;
+  --flesh-100: 239 233 219;
+  --brand:      10 74 110;    /* Azul petróleo */
+  --brand-2:    14 99 147;
+  --warn:      247 181 18;    /* Amarillo advertencia */
+  --warn-ink:   99 74 0;
+}
+
+/* Tipografías por clase utilitaria */
+.font-anodyne-sans {
+  font-family: var(--font-sans), serif; }
+.font-anodyne-mono {
+  font-family: var(--font-mono), monospace; }
+
+/* Helpers de color (clases utilitarias) */
+.bg-anodyne-flesh-50 { background-color: rgb(var(--flesh-50)); }
+.bg-anodyne-flesh-100 { background-color: rgb(var(--flesh-100)); }
+.text-anodyne-ink { color: rgb(var(--ink)); }
+.text-anodyne-ink-2 { color: rgb(var(--ink-2)); }
+.border-anodyne { border-color: rgb(var(--border)); }
+.bg-anodyne-brand { background-color: rgb(var(--brand)); }
+.hover\:bg-anodyne-brand-2:hover { background-color: rgb(var(--brand-2)); }
+
+/* Warning */
+.bg-warning-soft { background-color: color-mix(in oklab, rgb(var(--warn)) 20%, white); }
+.text-warning-ink { color: rgb(var(--warn-ink)); }
+.border-warning { border-color: rgb(var(--warn)); }
+
+/* Detalle retro */
+.hr-rule { height: 1px; background: linear-gradient(to right, rgba(0,0,0,.1), rgba(0,0,0,.05), rgba(0,0,0,.1)); }
+
+/* Base */
+html, body, #app { height: 100%; }
+:root {
+  font-family: var(--font-sans), sans-serif; }
