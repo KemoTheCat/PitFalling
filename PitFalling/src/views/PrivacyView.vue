@@ -19,7 +19,7 @@
     <section class="space-y-3">
       <h2 class="text-xl font-semibold">1. Responsable y Finalidad</h2>
       <p>
-        Responsable: <strong><a class="kemocaatlink" href="https://www.youtube.com/watch?v=ijEUmSEN42c&list=RDijEUmSEN42c&start_radio=1&autoplay=1" target="_blank" rel="noopener">Kemocaat Studios</a></strong>. Tratamos datos mínimos (correo, alias, avatar) para:
+        Responsable: <strong><a class="kemocaatlink" href="https://www.youtube.com/watch?v=6Y4b25CYkkg&list=RD6Y4b25CYkkg&start" target="_blank" rel="noopener">Kemocaat Studios</a></strong>. Tratamos datos mínimos (correo, alias, avatar) para:
         autenticación, sesión, y funcionalidades propias del portal para la mesa de rol.
       </p>
     </section>
