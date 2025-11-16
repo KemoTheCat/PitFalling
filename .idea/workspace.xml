@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a64a678-f256-4565-941a-48c28289ef89" name="Changes" comment="added defective version to test in VM playground" />
+    <list default="true" id="7a64a678-f256-4565-941a-48c28289ef89" name="Changes" comment="return to pre jules version">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager" show_ignored="true" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -98,6 +101,7 @@
       <workItem from="1762302988254" duration="6069000" />
       <workItem from="1762486796278" duration="2727000" />
       <workItem from="1762653250537" duration="1309000" />
+      <workItem from="1762658276190" duration="2830000" />
     </task>
     <task id="LOCAL-00001" summary="added defective version to test in VM playground">
       <option name="closed" value="true" />
@@ -107,7 +111,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762653946283</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="return to pre jules version">
+      <option name="closed" value="true" />
+      <created>1762658301413</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1762658301413</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,6 +127,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added defective version to test in VM playground" />
-    <option name="LAST_COMMIT_MESSAGE" value="added defective version to test in VM playground" />
+    <MESSAGE value="return to pre jules version" />
+    <option name="LAST_COMMIT_MESSAGE" value="return to pre jules version" />
   </component>
 </project>

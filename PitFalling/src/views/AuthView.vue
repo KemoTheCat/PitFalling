@@ -138,27 +138,46 @@ const route = useRoute()
 const auth = useAuthStore()
 
 onMounted(async () => {
-  // Failsafe: si venimos con ?force=1, ejecutar limpieza local inmediata
-  if (route.query.force === '1') {
-    try { await auth.hardLocalLogout() } catch {}
+  // Limpiar el parámetro force de la URL si existe
+  if (route.query.force) {
+    await router.replace({ name: 'login', query: {} })
+  }
+  
+  // Si ya está autenticado, redirigir
+  if (auth.isAuthed) {
+    const next = (route.query.next as string) || '/dashboard'
+    await router.push(next)
   }
 })
 
 function toMessage(err: unknown): string {
   if (err instanceof Error) return err.message
   if (typeof err === 'string') return err
-  try { return JSON.stringify(err) } catch { return 'Unknown error' }
+  try { 
+    const obj = err as any
+    if (obj?.message) return obj.message
+    return JSON.stringify(err) 
+  } catch { 
+    return 'Error desconocido' 
+  }
 }
 
 async function handleLogin() {
   errorMsg.value = ''
+  if (!email.value || !password.value) {
+    errorMsg.value = 'Por favor completa todos los campos'
+    return
+  }
+  
   loading.value = true
   try {
     await auth.login(email.value, password.value)
     const next = (route.query.next as string) || '/dashboard'
     await router.push(next)
   } catch (err: unknown) {
-    errorMsg.value = toMessage(err) || 'No se pudo iniciar sesión.'
+    console.error('[AuthView] Login error:', err)
+    const msg = toMessage(err)
+    errorMsg.value = msg || 'No se pudo iniciar sesión. Verifica tus credenciales.'
   } finally {
     loading.value = false
   }
@@ -166,6 +185,16 @@ async function handleLogin() {
 
 async function handleRegister() {
   errorMsg.value = ''
+  if (!email.value || !password.value) {
+    errorMsg.value = 'Por favor completa todos los campos'
+    return
+  }
+  
+  if (password.value.length < 6) {
+    errorMsg.value = 'La contraseña debe tener al menos 6 caracteres'
+    return
+  }
+  
   loading.value = true
   try {
     await auth.register(email.value, password.value)
@@ -176,7 +205,9 @@ async function handleRegister() {
     }
     await router.push('/account/setup')
   } catch (err: unknown) {
-    errorMsg.value = toMessage(err) || 'No se pudo registrar la cuenta.'
+    console.error('[AuthView] Register error:', err)
+    const msg = toMessage(err)
+    errorMsg.value = msg || 'No se pudo registrar la cuenta.'
   } finally {
     loading.value = false
   }

@@ -189,6 +189,6 @@ async function doLogout() {
   void auth.logout()
   open.value = false
   mobileOpen.value = false
-  await router.replace('/login?force=1')
+  await router.replace('/login')
 }
 </script>

@@ -25,7 +25,22 @@ function toMessage(err: unknown): string {
   try { return JSON.stringify(err) } catch { return 'Unknown error' }
 }
 
-async function saveNickname() { /* igual como te lo dejé antes */ }
+async function saveNickname() {
+  nickError.value = ''; nickOk.value = false
+  if (!nick.value || nick.value.trim().length < 2) {
+    nickError.value = 'El nickname debe tener al menos 2 caracteres.'
+    return
+  }
+  savingNick.value = true
+  try {
+    await auth.updateProfile({ nickname: nick.value.trim() })
+    nickOk.value = true
+  } catch (err: unknown) {
+    nickError.value = toMessage(err)
+  } finally {
+    savingNick.value = false
+  }
+}
 
 async function saveAvatar(file: File) {
   avatarError.value = ''; avatarOk.value = false
@@ -33,7 +48,7 @@ async function saveAvatar(file: File) {
   avatarSaving.value = true
   try {
     const url = await uploadAvatar(auth.user.id, file)
-    await auth.setAvatar(url)    // <-- actualiza store + DB
+    await auth.setAvatar(url)
     avatarOk.value = true
   } catch (err: unknown) {
     avatarError.value = toMessage(err)
@@ -75,66 +90,5 @@ async function saveAvatar(file: File) {
       </RouterLink>
     </div>
   </section>
-</template>
+  </template>
 
-
-<script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
-import AvatarCropper from '@/components/AvatarCropper.vue'
-import { uploadAvatar } from '@/lib/uploadAvatar'
-import { useAuthStore } from '@/stores/auth'
-
-const auth = useAuthStore()
-
-const nick = ref<string>('')
-const savingNick = ref(false)
-const nickError = ref('')
-const nickOk = ref(false)
-
-const avatarSaving = ref(false)
-const avatarError = ref('')
-const avatarOk = ref(false)
-
-onMounted(() => { nick.value = auth.nickname || '' })
-
-const isComplete = computed(() => auth.isProfileComplete)
-
-function toMessage(err: unknown): string {
-  if (err instanceof Error) return err.message
-  if (typeof err === 'string') return err
-  try { return JSON.stringify(err) } catch { return 'Unknown error' }
-}
-
-async function saveNickname() {
-  nickError.value = ''; nickOk.value = false
-  if (!nick.value || nick.value.trim().length < 2) {
-    nickError.value = 'El nickname debe tener al menos 2 caracteres.'
-    return
-  }
-  savingNick.value = true
-  try {
-    await auth.updateProfile({ nickname: nick.value.trim() })
-    nickOk.value = true
-  } catch (err: unknown) {
-    nickError.value = toMessage(err)
-  } finally {
-    savingNick.value = false
-  }
-}
-
-async function saveAvatar(file: File) {
-  avatarError.value = ''; avatarOk.value = false
-  if (!auth.user) { avatarError.value = 'No hay sesión activa.'; return }
-  avatarSaving.value = true
-  try {
-    const url = await uploadAvatar(auth.user.id, file)  // sube a Storage
-    await auth.setAvatar(url)                            // guarda en profiles + store
-    avatarOk.value = true
-  } catch (err: unknown) {
-    avatarError.value = toMessage(err)
-  } finally {
-    avatarSaving.value = false
-  }
-}
-</script>

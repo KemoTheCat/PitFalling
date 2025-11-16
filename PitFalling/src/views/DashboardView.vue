@@ -1,10 +1,10 @@
-<template>
+﻿<template>
   <section class="mx-auto max-w-6xl p-4 space-y-6">
     <!-- Encabezado -->
     <header class="flex items-center justify-between">
       <div>
         <p class="font-anodyne-mono text-xs tracking-widest uppercase text-anodyne-ink-2">
-          Anodyne Systems — Contractor Console
+          Anodyne Systems © Contractor Console
         </p>
         <h1 class="text-2xl font-anodyne-mono font-semibold">
           Bienvenido, {{ displayName }}
@@ -42,7 +42,7 @@
         @click="createCharacter"
         class="inline-flex items-center rounded-sm bg-anodyne-brand hover:bg-anodyne-brand-2 text-white px-4 py-2 text-sm font-semibold disabled:opacity-60"
       >
-        {{ creating ? 'Creando…' : 'Crear nuevo jugador' }}
+        {{ creating ? 'Creandoâ€¦' : 'Crear nuevo jugador' }}
       </button>
     </div>
 
@@ -53,12 +53,12 @@
     <section class="space-y-3">
       <h3 class="font-anodyne-mono text-base uppercase tracking-widest">Mis Personajes</h3>
 
-      <div v-if="loading" class="text-sm text-anodyne-ink-2">Cargando…</div>
+      <div v-if="loading" class="text-sm text-anodyne-ink-2">Cargando...¦</div>
 
       <div v-else-if="characters.length === 0" class="border border-anodyne bg-white p-5">
         <p class="text-sm text-anodyne-ink-2">
           Aún no tienes un personaje. Crea el primero con el botón
-          <em>“Crear nuevo jugador”</em>.
+          <em>"Crear nuevo jugador"</em>.
         </p>
       </div>
 
@@ -84,12 +84,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
-import { supabase } from '@/lib/supabaseClient'
-import type { RealtimeChannel } from '@supabase/supabase-js'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 
-type CharacterRow = {
+ type CharacterRow = {
   id: string
   user_id: string
   name: string
@@ -107,31 +105,37 @@ const loading = ref(false)
 const creating = ref(false)
 const errorMsg = ref('')
 
-/** Banner si está en rol genérico y sin personajes */
+const STORAGE_KEY = 'pf_mock_characters'
+
+function readAllCharacters(): CharacterRow[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    return []
+  }
+}
+
+function persistCharacters(all: CharacterRow[]): void {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(all)) } catch {}
+}
+
 const rolePending = computed(() => role.value === 'Visitor' && characters.value.length === 0)
 
 async function loadCharacters() {
   errorMsg.value = ''
-  // Si no hay usuario aún (post-refresh antes de hidratar), no activar loading ni consultar
   if (!auth.user) {
     characters.value = []
     return
   }
   loading.value = true
   try {
-    const { data, error } = await supabase
-      .from('characters')
-      .select('id,user_id,name,avatar_url,created_at')
-      .eq('user_id', auth.user.id)
-      .order('created_at', { ascending: false })
-
-    if (error) {
-      console.error(error)
-      errorMsg.value = 'No se pudieron cargar los personajes.'
-      characters.value = []
-      return
-    }
-    characters.value = (data ?? []) as CharacterRow[]
+    const all = readAllCharacters()
+    characters.value = all
+      .filter(c => c.user_id === auth.user?.id)
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
   } finally {
     loading.value = false
   }
@@ -142,93 +146,36 @@ async function createCharacter() {
   creating.value = true
   errorMsg.value = ''
   try {
-    const { data, error } = await supabase
-      .from('characters')
-      .insert({ user_id: auth.user.id, name: 'Nuevo personaje', data: {} })
-      .select()
-      .single()
-
-    if (error) {
-      console.error(error)
-      errorMsg.value = 'No se pudo crear el personaje.'
-      return
+    const now = new Date().toISOString()
+    const newCharacter: CharacterRow = {
+      id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}`,
+      user_id: auth.user.id,
+      name: `Nuevo personaje ${characters.value.length + 1}`,
+      avatar_url: null,
+      created_at: now
     }
+    const all = readAllCharacters()
+    all.unshift(newCharacter)
+    persistCharacters(all)
+    characters.value.unshift(newCharacter)
 
-    characters.value.unshift(data as CharacterRow)
-
-    // Promoción simple desde el cliente si era el primero
     if (characters.value.length === 1 && role.value === 'Visitor') {
-      await auth.updateProfile({ role: 'Operador' }) // ajusta al rol que definas
+      await auth.updateProfile({ role: 'Operador' })
     }
   } finally {
     creating.value = false
   }
 }
 
-/* ------- Realtime (refrescar role si cambia externamente) ------- */
-const channel = ref<RealtimeChannel | null>(null)
-
-onMounted(async () => {
-  // No forzamos hidratación aquí para evitar carreras; el watcher manejará la carga.
-  // Intento suave: si ya hay usuario, cargamos; si no, esperamos a que esté listo.
-  if (auth.user) await loadCharacters()
-
-  if (auth.user) {
-    channel.value = supabase
-      .channel('profiles-role-watch', { config: { broadcast: { self: false } } })
-      .on(
-        'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${auth.user.id}` },
-        async () => { await auth.fetchProfile() }
-      )
-      .subscribe()
-  }
-
-  // Reactivar cuando la sesión se hidrata tras un refresh o cambie el usuario
-  watch(() => auth.user?.id, async (newId, oldId) => {
-    if (newId && newId !== oldId) {
-      await loadCharacters()
-      // resuscribir canal con el nuevo id
-      if (channel.value) { try { await channel.value.unsubscribe() } catch {} }
-      channel.value = supabase
-        .channel('profiles-role-watch', { config: { broadcast: { self: false } } })
-        .on(
-          'postgres_changes',
-          { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${newId}` },
-          async () => { await auth.fetchProfile() }
-        )
-        .subscribe()
-    }
-    if (!newId && oldId) {
-      // usuario salió: limpiar lista y canal
-      characters.value = []
-      if (channel.value) { try { await channel.value.unsubscribe() } catch {} ; channel.value = null }
-    }
-  })
-
-  // Observa disponibilidad para consultar de forma robusta
-  watch(
-    () => ({ ready: auth.isReady, uid: auth.user?.id || null }),
-    async (s) => {
-      // Cuando el store está listo y hay usuario, intentamos cargar
-      if (s.ready && s.uid) {
-        await loadCharacters()
-      }
-      // Si el store está listo y NO hay usuario, garantizamos que no quede spinner
-      if (s.ready && !s.uid) {
-        loading.value = false
-        characters.value = []
-      }
-    },
-    { immediate: true, deep: true }
-  )
+onMounted(() => {
+  if (auth.user) void loadCharacters()
 })
 
-onBeforeUnmount(() => {
-  if (channel.value) {
-    // no necesitamos hacer el hook async; ignoramos la promesa con `void`
-    void channel.value.unsubscribe()
-    channel.value = null
+watch(() => auth.user?.id, (newId) => {
+  if (newId) {
+    void loadCharacters()
+  } else {
+    characters.value = []
   }
 })
 </script>
