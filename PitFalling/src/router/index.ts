@@ -30,6 +30,11 @@ const routes: RouteRecordRaw[] = [
     name: 'settings',
     component: () => import('@/views/SettingsView.vue')
   },
+  {
+    path: '/kemocaat',
+    name: 'kemocaat',
+    component: () => import('@/views/KemocaatStudiosView.vue')
+  },
   { path: '/:pathMatch(.*)*', redirect: { name: 'home' } }
 ]
 

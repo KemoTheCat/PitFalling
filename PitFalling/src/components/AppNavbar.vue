@@ -1,10 +1,9 @@
 <template>
   <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-anodyne/30">
     <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-      <!-- Logo / Brand -->
+      <!-- Logo -->
       <RouterLink to="/" class="flex items-center gap-3" aria-label="Anodyne Visitor Portal">
         <div class="h-10 flex items-center">
-          <!-- Reemplaza la ruta por tu archivo -->
           <img
             src="@/assets/Logo.png"
             alt="Anodyne Systems"
@@ -20,7 +19,7 @@
         </div>
       </RouterLink>
 
-      <!-- Desktop -->
+      <!-- Modo Desktop -->
       <div class="hidden sm:flex items-center gap-4">
         <RouterLink
           v-if="!isAuthed"

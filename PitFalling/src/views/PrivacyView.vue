@@ -19,7 +19,7 @@
     <section class="space-y-3">
       <h2 class="text-xl font-semibold">1. Responsable y Finalidad</h2>
       <p>
-        Responsable: <strong>Kemocaat Studios</strong>. Tratamos datos mínimos (correo, alias, avatar) para:
+        Responsable: <strong><a class="kemocaatlink" href="https://www.youtube.com/watch?v=ijEUmSEN42c&list=RDijEUmSEN42c&start_radio=1&autoplay=1" target="_blank" rel="noopener">Kemocaat Studios</a></strong>. Tratamos datos mínimos (correo, alias, avatar) para:
         autenticación, sesión, y funcionalidades propias del portal para la mesa de rol.
       </p>
     </section>
@@ -95,3 +95,24 @@
 <script setup lang="ts">
 const lastUpdated = new Date().toLocaleDateString()
 </script>
+
+<style scoped>
+.kemocaatlink {
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(157, 0, 255, 0.35);
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.kemocaatlink:hover {
+  color: #9d00ff;
+  border-bottom-color: rgba(250, 222, 0, 0.5);
+}
+
+.kemocaatlink--inline {
+  font-weight: inherit;
+  border-bottom-color: rgba(157, 0, 255, 0.2);
+}
+</style>
+

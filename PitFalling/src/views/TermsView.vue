@@ -1,6 +1,6 @@
-<template>
+﻿<template>
   <section class="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-    <!-- Banner ficticio + créditos -->
+    <!-- Banner ficticio + creditos -->
     <div class="border border-yellow-600/50 bg-yellow-100/70 text-yellow-900 p-4">
       <p class="font-semibold uppercase tracking-widest text-xs">Aviso de Seguridad — Uso Ficticio</p>
       <p class="mt-2 text-sm leading-relaxed">
@@ -31,7 +31,7 @@
     <section class="space-y-3">
       <h2 class="text-xl font-semibold">1. Partes y Objeto</h2>
       <p>
-        Este portal (“Servicio”) es operado por <strong>Kemocaat Studios</strong> (“Nosotros”).
+        Este portal (“Servicio”) es operado por <RouterLink to="/kemocaat" class="kemocaat-trigger">Kemocaat Studios</RouterLink> (“Nosotros”).
         El universo <em>Mystery Flesh Pit National Park</em> es creación de <strong>Trevor Roberts</strong>.
         Nosotros no reclamamos derecho alguno sobre la obra original salvo el diseño, código y
         contenidos propios de este sitio.
@@ -39,7 +39,7 @@
       <p>
         Estos Términos regulan el uso del Servicio por parte del usuario. Al acceder, aceptas
         que el Servicio es <strong>exclusivamente de entretenimiento</strong>, y que es un recurso
-        de apoyo para una <strong>mesa de rol concreta de Kemocaat Studios</strong>; no se recomienda su
+        de apoyo para una <strong>mesa de rol concreta de <RouterLink to="/kemocaat" class="kemocaat-trigger kemocaat-trigger--inline">Kemocaat Studios</RouterLink></strong>; no se recomienda su
         uso general sin adaptación expresa.
       </p>
     </section>
@@ -119,5 +119,27 @@
 </template>
 
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
+
 const lastUpdated = new Date().toLocaleDateString()
 </script>
+
+<style scoped>
+.kemocaat-trigger {
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(157, 0, 255, 0.35);
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.kemocaat-trigger:hover {
+  color: #9d00ff;
+  border-bottom-color: rgba(250, 222, 0, 0.5);
+}
+
+.kemocaat-trigger--inline {
+  font-weight: inherit;
+  border-bottom-color: rgba(157, 0, 255, 0.2);
+}
+</style>
