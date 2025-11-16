@@ -48,7 +48,7 @@
               <span v-else class="text-sm font-semibold">{{ initials }}</span>
             </div>
             <div class="leading-tight text-left">
-              <div class="text-sm font-medium truncate max-w-[12rem]">{{ displayName }}</div>
+              <div class="text-sm font-medium truncate max-w-48">{{ displayName }}</div>
               <div class="text-[11px]">
                 <span class="inline-flex items-center rounded-sm px-1.5 py-[2px] border border-anodyne/60 bg-anodyne-flesh-100">
                   {{ role }}
@@ -100,12 +100,11 @@
               <div class="my-1 border-t border-anodyne/20"></div>
 
               <button
-                class="block w-full text-left px-3 py-2 text-sm rounded-sm transition-all duration-150 hover:bg-red-100 hover:text-red-700 hover:pl-4 disabled:opacity-60"
+                class="block w-full text-left px-3 py-2 text-sm rounded-sm transition-all duration-150 hover:bg-red-100 hover:text-red-700 hover:pl-4"
                 role="menuitem"
-                :disabled="auth.loggingOut"
                 @click="doLogout"
               >
-                {{ auth.loggingOut ? 'Saliendo…' : 'Salir' }}
+                Salir
               </button>
             </div>
           </transition>
@@ -184,8 +183,6 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onDocClick))
 const mobileOpen = ref(false)
 
 async function doLogout() {
-  if (auth.loggingOut) return
-  // Disparamos el logout pero no esperamos a red; navegamos de inmediato al failsafe
   void auth.logout()
   open.value = false
   mobileOpen.value = false
